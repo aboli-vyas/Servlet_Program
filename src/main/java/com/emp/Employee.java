@@ -2,6 +2,9 @@ package com.emp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -75,6 +78,36 @@ public class Employee extends HttpServlet{
 		
 		out.print("</body>");
 		out.print("</html>");
+		
+		//Database Connection
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3307/employee","root","root");
+			PreparedStatement ps = c.prepareStatement("insert into emp(empId,firstName,lastName,email,phone,dob,gender,address,city,state,zip,department,position,joingDate,salary)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+			ps.setInt(1,empId11 );
+			ps.setString(2, firstName1);
+			ps.setString(3, lastName1);
+			ps.setString(4, email1);
+			ps.setLong(5, phone11);
+			ps.setString(6, dob1);
+			ps.setString(7, gender1);
+			ps.setString(8, address1);
+			ps.setString(9, city1);
+			ps.setString(10, state1);
+			ps.setInt(11, zip11 );
+			ps.setString(12, department1);
+			ps.setString(13, position1);
+			ps.setString(14, joiningDate1);
+			ps.setLong(15, salary11);
+			
+			ps.executeUpdate();
+			System.out.println("Data inserted");
+			out.print("<h1>" + "Data inserted" + "</h11>");
+			
+			
+		} catch (Exception e) {
+			
+		}
 		
 		
 		
